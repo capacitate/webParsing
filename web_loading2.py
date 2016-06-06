@@ -63,7 +63,7 @@ def spider(max_pages):
 
 
 def loading2(max_pages):
-	page = 7
+	page = 1
 
 	movie_data = {'id_movie':[], 'kor_movieNM':[], 'en_movieNM':[], 'productYear':[], 
 		'openDT':[], 'prdstate':[], 'nation_all':[], 'genre_all':[], 'repGenre':[], 
@@ -250,24 +250,24 @@ def loading2(max_pages):
 
 			
 
-			movie_data['id_movie'] += str(movie_id)
-			movie_data['kor_movieNM'] += movieNM_kor
-			movie_data['en_movieNM'] += movieNM_en
-			movie_data['productYear'] += yearProduct
-			movie_data['openDT'] += DTopen
-			movie_data['prdstate'] += stateprd
-			movie_data['nation_all'] += all_nation
-			movie_data['genre_all'] += all_genre
-			movie_data['repGenre'] += genreRep
-			movie_data['id_director'] += ids_dir
-			movie_data['directors'] += directors
-			movie_data['maker_all'] += all_maker
-			movie_data['id_maker'] += all_maker_id
-			movie_data['main_actors_name'] += main_actors
-			movie_data['main_id_actors'] += main_actors_id
-			movie_data['sub_actors_name'] += sub_actors
-			movie_data['sub_id_actors'] += sub_actors_id
-			movie_data['how_many_times'] += str(num_award)
+			# movie_data['id_movie'] += str(movie_id)
+			# movie_data['kor_movieNM'] += movieNM_kor
+			# movie_data['en_movieNM'] += movieNM_en
+			# movie_data['productYear'] += yearProduct
+			# movie_data['openDT'] += DTopen
+			# movie_data['prdstate'] += stateprd
+			# movie_data['nation_all'] += all_nation
+			# movie_data['genre_all'] += all_genre
+			# movie_data['repGenre'] += genreRep
+			# movie_data['id_director'] += ids_dir
+			# movie_data['directors'] += directors
+			# movie_data['maker_all'] += all_maker
+			# movie_data['id_maker'] += all_maker_id
+			# movie_data['main_actors_name'] += main_actors
+			# movie_data['main_id_actors'] += main_actors_id
+			# movie_data['sub_actors_name'] += sub_actors
+			# movie_data['sub_id_actors'] += sub_actors_id
+			# movie_data['how_many_times'] += str(num_award)
 			
 
 			# filename = "test.txt"
@@ -431,4 +431,4 @@ def loading(max_pages):
 
 #spider(2)
 # loading(2)
-loading2(12)
+loading2(5559)

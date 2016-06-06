@@ -11,7 +11,7 @@ def directors(director_id):
 	print("")
 
 def searchPage(max_pages):
-	page = 1
+	page = 3
 
 	while page <= max_pages:
 		print("************" + str(page) + "************")
@@ -72,7 +72,6 @@ def searchPage(max_pages):
 						sub_actors += actor_dic["peopleNm"] + ","
 						sub_actors_id += actor_dic["peopleCd"] + ","	
 
-
 			cols = [ele.text.strip() for ele in cols]
 			productYear = cols[2].strip()	#productYear
 
@@ -80,6 +79,8 @@ def searchPage(max_pages):
 			print("film_id :\t" + film_id)
 			print("prodcuctYear :\t" + productYear)
 			print("directors :\t" + ids_dir)
+			print("main actors id:\t" + main_actors_id)
+			print("sub actors id:\t" + sub_actors_id)
 
 			movie_url = 'http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieDtl.do'
 			movie_source = requests.post(movie_url, {'code' : film_id})
@@ -119,4 +120,4 @@ def searchPage(max_pages):
 		page += 1
 
 
-searchPage(1)
+searchPage(3)
