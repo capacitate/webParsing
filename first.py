@@ -4,9 +4,9 @@ import csv
 from bs4 import BeautifulSoup
 
 def loading(pages):
-	page = 176
+	page = 5560
 
-	filename = "first138.csv"
+	filename = "first5560.csv"
 	with open(filename, 'w', newline='') as outfile:
 				writer = csv.writer(outfile)
 				writer.writerow(["id_movie", "movie_kor","id_director", "id_actors"])
@@ -14,8 +14,11 @@ def loading(pages):
 	while page <= pages:
 		print("************" + str(page) + "page" + "************")
 		url = 'http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do'
-		source_code = requests.post(url, {'curPage' : page})
-		
+		try:
+			source_code = requests.post(url, {'curPage' : page})
+		except:
+			source_code = requests.post(url, {'curPage' : page})
+
 		encoding = source_code.encoding if 'charset' in source_code.headers.get('content-type', '').lower() else None
 		soup = BeautifulSoup(source_code.content, "lxml", from_encoding=encoding)
 
@@ -46,11 +49,18 @@ def loading(pages):
 			# print("name\t" + movieNM_kor)
 
 			#information of actors
-			movie_staff = requests.post('http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovActorLists.do', data={
-			    'movieCd': film_id,
-			}, headers={
-			    'Accept': 'application/json'
-			})	
+			try:
+				movie_staff = requests.post('http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovActorLists.do', data={
+				    'movieCd': film_id,
+				}, headers={
+				    'Accept': 'application/json'
+				})	
+			except:
+				movie_staff = requests.post('http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovActorLists.do', data={
+				    'movieCd': film_id,
+				}, headers={
+				    'Accept': 'application/json'
+				})	
 
 			main_actors = "" 
 			main_actors_id = ""
@@ -86,16 +96,28 @@ def loading(pages):
 			# print(ids_dir)
 			# print(id_actors)
 
+			movieNM_kor.replace(u"\u2013", "-")
+			movieNM_kor.replace(u"\u00a9", "c")
+			movieNM_kor.replace(u"\ufffd", "u")
+
+			# movieNM_kor = "   "
+
+			try:
+				print(movieNM_kor)
+			except:
+				movieNM_kor = "   "
+
 			temp = []
 			temp.append(str(film_id))
 			temp.append(str(movieNM_kor))
 			temp.append(str(ids_dir))
 			temp.append(str(id_actors))
 			
+
 			with open(filename, 'a', newline='') as outfile:
 				writer = csv.writer(outfile)
 				writer.writerow(temp)
 
 		page += 1
 
-loading(5559)
+loading(5560)
