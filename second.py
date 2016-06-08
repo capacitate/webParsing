@@ -381,7 +381,7 @@ def actor_search(id_actor, id_film, productYear):
 
 	# search the movie code, return how many times the specific string occur 
 	# print(len(re.findall(id_film, award_str)))	#film_id should be the value
-	ac_award = len(re.findall(id_actor, award_str))
+	ac_award = len(re.findall(id_film, award_str))
 
 	result['ac_debut'] = ac_debut
 	result['ac_bir_y'] = ac_bir_y
@@ -411,9 +411,10 @@ def actor_search(id_actor, id_film, productYear):
 	return result
 
 def searchMovie():
-	standard = 1000
+	start = 2
+	end = 3
 	index_movie_main = 0	
-	filename = "second_1000.csv"
+	filename = "second_test.csv"
 	with open(filename, 'w', newline='') as outfile:
 				writer = csv.writer(outfile)
 				writer.writerow(["film_id", "title_kor", "productYear","openDT", "id_director", "director", "id_actor", "actor", "ac_debut", "ac_bir_y", "ac_sex", "ac_award", "ac_main",
@@ -434,7 +435,13 @@ def searchMovie():
 		for id_film in reader:
 			print("=============\t" + id_film[0] + "\t" + id_film[1] + "\t" + id_film[2] + "\t" + str(index_movie_main))
 			index_movie_main = index_movie_main + 1
-			# id_film = ['19740042', '사극', "제목"]	#@@for debug
+		
+			if(index_movie_main < start):
+				continue
+			if(index_movie_main > end):
+				break
+
+			# id_film = ['19970014', '사극', "제목"]	#@@for debug
 			# print("=============\t" + id_film[0] + "\t")
 			movie_url = 'http://www.kobis.or.kr/kobis/business/mast/mvie/searchMovieDtl.do'
 			try:
@@ -646,7 +653,7 @@ def searchMovie():
 				for id_main in id_main_actors_list:
 					# print(actor_search(id_main, id_film[0], productYear))
 					info_actor = actor_search(id_main, id_film[0], productYear)
-					# print(info_actor['actor'])
+					print(info_actor)
 
 					temp = []
 					temp.append(id_film[0])
@@ -798,6 +805,7 @@ def searchMovie():
 					temp.append(major_distributor)
 					temp.append(is_adult)
 
+					index_sub += 1
 					with open(filename, "a", newline='') as outfile:
 						writer = csv.writer(outfile)
 						writer.writerow(temp)
@@ -813,7 +821,7 @@ def searchMovie():
 			
 			# with open("film.txt", 'w') as outfile:
 			# 	outfile.write(source_code.content.decode("utf-8").replace(u"\ufeff", " "))
-
+			# break		
 
 
 # writer.writerow(["film_id", "productYear","openDT", "id_director", "director", "id_actor", "actor", "ac_debut", "ac_bir_y", "ac_sex", "ac_award", "ac_main",

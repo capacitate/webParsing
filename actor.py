@@ -10,8 +10,8 @@ def genre(x):
 	}[x]
 
 def actor():
-	id_actor = str(20110752)
-	id_film = str(20127192)
+	id_actor = str(10061252)
+	id_film = str(19970014)
 	productYear = 2015
 	result = {}
 
