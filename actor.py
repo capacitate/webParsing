@@ -10,7 +10,7 @@ def genre(x):
 	}[x]
 
 def actor():
-	id_actor = str(10061252)
+	id_actor = str(20125838)
 	id_film = str(19970014)
 	productYear = 2015
 	result = {}
@@ -33,6 +33,10 @@ def actor():
 	ac_traditional = 0
 	ac_thriller = 0
 	ac_total_movie = 0
+
+	ac_debut = 0
+	ac_bir_y = 0
+	ac_sex = 0
 
 	actor = requests.post('http://www.kobis.or.kr/kobis/business/mast/peop/searchPeopleDtl.do', data={
 	    'code': id_actor,
@@ -71,8 +75,21 @@ def actor():
 		movie_list = actor_soup.find('ul', attrs={'class':"fmList"})
 		movie_list = movie_list.findAll('dd', attrs={'class':'minfo'})
 		# print(movie_list)
+		is_actor = 0
 		for i in movie_list:
 			# print(i.text)
+			if("주연" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if("조연" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if("단역" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if(is_actor != 1):
+				continue
+
 			m_list = i.text.split("|")
 			# print(m_list)	#m_list[0] - year, m_list[1] - nation, m_list[2] - genre
 			print("=============" + m_list[0])
@@ -87,6 +104,8 @@ def actor():
 				movieYear = int(m_list[0])
 			except:
 				movieYear = int(productYear)
+
+			print("제작연도 :\t" + str(movieYear))
 
 			if(int(productYear) > movieYear):
 				ac_total_movie += 1
@@ -205,7 +224,7 @@ def actor():
 	result['ac_total_movie'] = ac_total_movie
 	result['actor'] = actor
 
-	print("debut\t" + result['ac_debut'])
+	print("debut\t" + str(result['ac_debut']))
 
 	return result
 print(actor())

@@ -89,6 +89,8 @@ def director_search(id_actor, id_film, productYear):
 		movie_list = movie_list.findAll('dd', attrs={'class':'minfo'})
 		# print(movie_list)
 		for i in movie_list:
+			if("감독" not in i.parent.find("dd").text):
+				continue
 			# print(i.text)
 			m_list = i.text.split("|")
 			# print(m_list)	#m_list[0] - year, m_list[1] - nation, m_list[2] - genre
@@ -256,6 +258,18 @@ def actor_search(id_actor, id_film, productYear):
 		# print(movie_list)
 		for i in movie_list:
 			# print(i.text)
+			if("주연" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if("조연" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if("단역" not in i.parent.find("dd").text):
+				is_actor = 1
+
+			if(is_actor != 1):
+				continue
+
 			m_list = i.text.split("|")
 			# print(m_list)	#m_list[0] - year, m_list[1] - nation, m_list[2] - genre
 			# print("=============" + m_list[0])
@@ -411,10 +425,10 @@ def actor_search(id_actor, id_film, productYear):
 	return result
 
 def searchMovie():
-	start = 2
-	end = 3
+	start = 3000
+	end = 3805
 	index_movie_main = 0	
-	filename = "second_test.csv"
+	filename = "second_2_4_3000_3805.csv"
 	with open(filename, 'w', newline='') as outfile:
 				writer = csv.writer(outfile)
 				writer.writerow(["film_id", "title_kor", "productYear","openDT", "id_director", "director", "id_actor", "actor", "ac_debut", "ac_bir_y", "ac_sex", "ac_award", "ac_main",
@@ -653,7 +667,7 @@ def searchMovie():
 				for id_main in id_main_actors_list:
 					# print(actor_search(id_main, id_film[0], productYear))
 					info_actor = actor_search(id_main, id_film[0], productYear)
-					print(info_actor)
+					# print(info_actor)
 
 					temp = []
 					temp.append(id_film[0])
